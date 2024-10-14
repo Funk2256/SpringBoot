@@ -1,26 +1,18 @@
 package ru.krasheninnikov.SecondApp.service;
 
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import ru.krasheninnikov.SecondApp.model.Request;
+import ru.krasheninnikov.SecondApp.model.Response;
 
 @Service
-public class ModifysystemNameRequestService implements ModifyRequestService{
+@Qualifier("ModifySystemNameRequestService")
+
+public class ModifySystemNameRequestService implements ModifyResponseService{
     @Override
-    public void modify(Request request) {
-        request.setSystemName("Service1");
-        request.setSource("from Service1");
-        request.setSystemTime(request.getSystemTime());
-
-        HttpEntity<Request>httpEntity = new HttpEntity<>(request);
-
-        new RestTemplate().exchange("http://localhost:8084/feedback",
-                HttpMethod.POST,
-                httpEntity,
-                new ParameterizedTypeReference<>() {
-                });
+    public Response modify(Response response) {
+        response.setSystemTime("Service 1");
+        return response;
     }
+
 }
